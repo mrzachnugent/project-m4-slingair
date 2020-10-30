@@ -2,7 +2,7 @@
 
 ## My stretch exercise
 
-<img src='frontend/src/assets/screenshots/slingshot-project.gif'  />
+<img src='frontend/src/assets/slingshot-project.gif'  />
 
 <img src='frontend/src/assets/screenshots/header.png' style='width:100%' />
 
