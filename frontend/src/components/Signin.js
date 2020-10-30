@@ -5,7 +5,13 @@ import { useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 
-export const Signin = ({ userData, setUserData, setIsLoggedIn }) => {
+export const Signin = ({
+  userData,
+  setUserData,
+  setIsLoggedIn,
+  setFormData,
+  formData,
+}) => {
   const [isDisabled, setIsDisabled] = useState(true);
   let history = useHistory();
   const handleChange = (val, item) => {
@@ -69,7 +75,18 @@ export const Signin = ({ userData, setUserData, setIsLoggedIn }) => {
             e.preventDefault();
             localStorage.setItem("userData", JSON.stringify(userData));
             setIsLoggedIn(true);
-            history.push("/seats");
+            fetch(`/api/v2/users/${userData.email}`)
+              .then((res) => res.json())
+              .then((json) => {
+                const { status, message, data } = json;
+                if (data.email === "") {
+                  setFormData({ ...formData, ...userData });
+                  history.push("/seats");
+                } else {
+                  history.push("/profile");
+                  setFormData({ ...data });
+                }
+              });
           }}
         >
           Sign in

@@ -48,39 +48,26 @@ const SeatSelect = ({
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    if (validateEmail()) {
-      formData.flight = flightNumber;
-      // TODO: Send data to the server for validation/submission
-      // TODO: if 201, add reservation id (received from server) to localStorage
-      // TODO: if 201, redirect to /confirmed (push)
-      // TODO: if error from server, show error to user (stretch goal)
 
-      fetch("/api/v1/reservations", {
-        method: "POST",
-        body: JSON.stringify(formData),
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((json) => {
-          const { status, message, data } = json;
-          if (status === 201) {
-            console.log(message);
-            setSubStatus("confirmed");
-            localStorage.setItem("confirmationId", `${data.id}`);
-            localStorage.setItem("userData", JSON.stringify(data));
-            updateUserReservation(data);
-            setIsShowing(true);
-            // formData.id = data.id;
-            history.push("/confirmed");
-          } else {
-            console.log(status, message, data);
-            setSubStatus("error");
-          }
-        });
-    }
+    formData.flight = flightNumber;
+    // TODO: Send data to the server for validation/submission
+    // TODO: if 201, add reservation id (received from server) to localStorage
+    // TODO: if 201, redirect to /confirmed (push)
+    // TODO: if error from server, show error to user (stretch goal)
+
+    fetch("/api/v2/users", {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      // .then((json) => localStorage.setItem("confirmationId", `${formData.id}`))
+      .catch((err) => console.log(err));
+
+    history.push("/confirmed");
   };
 
   return (

@@ -5,7 +5,7 @@ import { NavLink, Link } from "react-router-dom";
 import { themeVars } from "./GlobalStyles";
 import slingairLogo from "../assets/logo_text.png";
 
-const Header = ({ isLoggedIn, setIsLoggedIn }) => (
+const Header = ({ isLoggedIn, setIsLoggedIn, setFormData }) => (
   <Wrapper>
     <Logo>
       <h1>Sling Airlines</h1>
@@ -23,6 +23,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => (
             to="/"
             onClick={() => {
               localStorage.setItem("userData", "");
+              setFormData({ seat: "" });
               setIsLoggedIn(false);
             }}
           >

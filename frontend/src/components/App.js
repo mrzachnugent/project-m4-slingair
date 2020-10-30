@@ -11,7 +11,7 @@ import { Reservation } from "./Reservation";
 import { ChangeSeat } from "./ChangeSeat";
 import { Signin } from "./Signin";
 
-const initialState = { seat: "", givenName: "", surname: "", email: "" };
+const initialState = { seat: "" };
 const userInitialState = { givenName: "", surname: "", email: "" };
 const App = () => {
   const [userReservation, setUserReservation] = useState([]);
@@ -32,7 +32,11 @@ const App = () => {
   return (
     <BrowserRouter>
       <GlobalStyles />
-      <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+      <Header
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        setFormData={setFormData}
+      />
       <Main>
         <Switch>
           <Route exact path="/">
@@ -40,6 +44,8 @@ const App = () => {
               userData={userData}
               setUserData={setUserData}
               setIsLoggedIn={setIsLoggedIn}
+              formData={formData}
+              setFormData={setFormData}
             />
           </Route>
           <Route path="/seats">
@@ -59,6 +65,7 @@ const App = () => {
               setUserReservation={setUserReservation}
               userData={userData}
               setUserData={setUserData}
+              formData={formData}
             />
           </Route>
           <Route exact path="/view-reservation">

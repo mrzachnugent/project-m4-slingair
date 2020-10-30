@@ -226,19 +226,93 @@ const updateReservationSeat = (req, res) => {
   });
 };
 
+//---------------------------------------------------------------------------------------------
 //for slingair API
 
-const apiGetFlights = (req, res) => {};
+const apiGetFlights = (req, res) => {
+  const options = {
+    uri: `https://journeyedu.herokuapp.com/slingair/flights`,
+  };
+  rp(options)
+    .then((repos) => JSON.parse(repos))
+    .then((obj) => {
+      res.status(200).json({
+        status: 200,
+        message: "success",
+        data: obj.flights,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: 400,
+        message: error,
+        data: "",
+      });
+    });
+};
 
-const apiGetSpecificFlight = (req, res) => {};
+const apiGetSpecificFlight = (req, res) => {
+  const { flight } = req.params;
+  const options = {
+    uri: `https://journeyedu.herokuapp.com/slingair/flights/${flight}`,
+  };
+  rp(options)
+    .then((repos) => JSON.parse(repos))
+    .then((obj) => {
+      res.status(200).json({
+        status: 200,
+        message: "success",
+        data: obj[flight],
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: 400,
+        message: error,
+        data: "",
+      });
+    });
+};
 
 const apiGetSpecificSeat = (req, res) => {};
 
 const apiGetUsers = (req, res) => {};
 
-const apiGetSpecificUser = (req, res) => {};
+const apiGetSpecificUser = (req, res) => {
+  const { userId } = req.params;
+  const options = {
+    uri: `https://journeyedu.herokuapp.com/slingair/users/${userId}`,
+  };
+  rp(options)
+    .then((repos) => JSON.parse(repos))
+    .then((obj) => {
+      res.status(200).json({
+        status: 200,
+        message: "success",
+        data: obj.data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: 400,
+        message: "User does not exist",
+        data: { email: "" },
+      });
+    });
+};
 
-const apiCreateUser = (req, res) => {};
+const apiCreateUser = (req, res) => {
+  const body = req.body;
+  const options = {
+    method: "POST",
+    uri: "https://journeyedu.herokuapp.com/slingair/users",
+    body: body,
+    json: true,
+  };
+  rp(options)
+    .then(() => console.log("Account created and reservation booked!"))
+    .catch((err) => console.log(err));
+};
 
 module.exports = {
   getFlights,

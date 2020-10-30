@@ -8,22 +8,23 @@ export const Profile = ({
   userData,
   setUserData,
   setUserReservation,
+  formData,
 }) => {
-  if (localStorage.getItem("confirmationId") === null) {
+  if (localStorage.getItem("userData") === null) {
     return (
       <ProfileContainer>
         <ProfileTitle>Profile</ProfileTitle>
         <NoProfileYetText>
-          A profile will automatically be created when you reserve a seat on a
-          flight.
+          You need to sign in to see your profile.
         </NoProfileYetText>
         <NoStyleLink to="/">
-          <StyledButton>Pick a flight</StyledButton>
+          <StyledButton>Sign in</StyledButton>
         </NoStyleLink>
       </ProfileContainer>
     );
   } else {
     const localStorageUserData = JSON.parse(localStorage.userData);
+    console.log(localStorageUserData.email);
 
     const handleChange = (val, item) => {
       setUserData({ ...userData, [item]: val });
@@ -44,41 +45,30 @@ export const Profile = ({
     };
 
     return (
-      <ProfileContainer>
-        <ProfileTitle>Profile</ProfileTitle>
-
-        <UpdateForm>
-          <InputLabel htmlFor="givenName">First name:</InputLabel>
-          <input
-            type="text"
-            name="givenName"
-            value={userReservation.givenName}
-            onChange={(ev) => handleChange(ev.target.value, "givenName")}
-          />
-          <InputLabel htmlFor="lastName">Last name:</InputLabel>
-          <input
-            type="text"
-            name="lastName"
-            value={`${userReservation.surname}`}
-            onChange={(ev) => handleChange(ev.target.value, "surname")}
-          />
-          <InputLabel htmlFor="email">Email:</InputLabel>
-          <input
-            type="email"
-            name="email"
-            value={`${userReservation.email}`}
-            placeholder={`${userReservation.email}`}
-            disabled={true}
-          />
-          <StyledButton type="submit" onClick={updateUser}>
-            Save Changes
-          </StyledButton>
-        </UpdateForm>
-
-        <NoStyleLink to="/view-reservation">
-          <StyledButton>See my reservation(s)</StyledButton>
-        </NoStyleLink>
-      </ProfileContainer>
+      <Wrapper>
+        <MessageBoard>
+          <ConfirmationTitle>Your profile</ConfirmationTitle>
+          <ListContainer>
+            <ReservatoinDetails>
+              <span>Reservation #:</span>
+              {formData.id}
+              {/* <span>Reservation #:</span> {form.id} */}
+            </ReservatoinDetails>
+            <ReservatoinDetails>
+              <span>Flight #:</span> {formData.flight}
+            </ReservatoinDetails>
+            <ReservatoinDetails>
+              <span>Seat #:</span> {formData.seat}
+            </ReservatoinDetails>
+            <ReservatoinDetails>
+              <span>Name:</span> {formData.givenName} {formData.surname}
+            </ReservatoinDetails>
+            <ReservatoinDetails>
+              <span>Email:</span> {formData.email}
+            </ReservatoinDetails>
+          </ListContainer>
+        </MessageBoard>
+      </Wrapper>
     );
   }
 };
@@ -143,4 +133,40 @@ const UpdateForm = styled.form`
 
 const InputLabel = styled.label`
   line-height: 50px;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 60px - 110px);
+`;
+
+const MessageBoard = styled.div`
+  border: 2px solid ${themeVars.alabamaCrimson};
+  padding: 30px;
+  border-radius: 5px;
+`;
+
+const ConfirmationTitle = styled.h1`
+  font-size: 28px;
+  font-family: monospace;
+  color: ${themeVars.alabamaCrimson};
+  border-bottom: 2px solid ${themeVars.alabamaCrimson};
+  padding-bottom: 10px;
+`;
+
+const ListContainer = styled.ul`
+  padding: 10px 0;
+  font-size: 21px;
+
+  li > span {
+    font-weight: 700;
+  }
+`;
+
+const ReservatoinDetails = styled.li`
+  padding: 10px 0;
+  font-size: 18px;
 `;

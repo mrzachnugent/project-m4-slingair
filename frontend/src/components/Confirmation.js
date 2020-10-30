@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { themeVars } from "./GlobalStyles";
 import tombstone from "../assets/tombstone.png";
 
 const Confirmation = ({ form }) => {
+  const [id, setId] = useState("");
+  useEffect(() => {
+    fetch(`/api/v2/users/${form.email}`)
+      .then((res) => res.json())
+      .then((json) => setId(`${json.data.id}`));
+  }, [id]);
+
   return (
     <Wrapper>
       <MessageBoard>
         <ConfirmationTitle>Your flight is confirmed!</ConfirmationTitle>
         <ListContainer>
           <ReservatoinDetails>
-            <span>Reservation #:</span> {localStorage.getItem("confirmationId")}
+            <span>Reservation #:</span> {id}
             {/* <span>Reservation #:</span> {form.id} */}
           </ReservatoinDetails>
           <ReservatoinDetails>

@@ -4,6 +4,7 @@ import Plane from "./Plane";
 import Input from "./Input";
 import Button from "./Button";
 import { themeVars } from "../GlobalStyles";
+import { Link } from "react-router-dom";
 
 const Form = ({
   disabled,
@@ -42,11 +43,13 @@ const Form = ({
         handleChange={handleChange}
         value={JSON.parse(localStorage.getItem("userData")).email}
       />
-      <Button
-        disabled={disabled}
-        handleClick={handleSubmit}
-        subStatus={subStatus}
-      />
+      <NoStyleLink to="/confirmed">
+        <Button
+          disabled={disabled}
+          handleClick={handleSubmit}
+          subStatus={subStatus}
+        />
+      </NoStyleLink>
     </UserForm>
   </Wrapper>
 );
@@ -64,6 +67,10 @@ const UserForm = styled.div`
   margin: auto;
   padding: 30px;
   width: 400px;
+`;
+
+const NoStyleLink = styled(Link)`
+  text-decoration: none;
 `;
 
 export default Form;

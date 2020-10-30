@@ -65,6 +65,7 @@ express()
   //update seat (should replace update reservation^ but I don't want to delete required project)
   .put("/api/v1/reservations/seat/:id", updateReservationSeat)
 
+  /////////////////////////////////////////////////////////////////////////////////////
   //SLINGAIR API
   //return an array of flight numbers
   .get("/api/v2/flights", apiGetFlights)
