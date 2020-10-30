@@ -3,7 +3,12 @@ import { useHistory } from "react-router-dom";
 import FlightSelect from "./FlightSelect";
 import Form from "./Form";
 
-const SeatSelect = ({ updateUserReservation, formData, setFormData }) => {
+const SeatSelect = ({
+  updateUserReservation,
+  formData,
+  setFormData,
+  setIsShowing,
+}) => {
   const history = useHistory();
   const [flightNumber, setFlightNumber] = useState(null);
 
@@ -21,7 +26,6 @@ const SeatSelect = ({ updateUserReservation, formData, setFormData }) => {
   const handleFlightSelect = (ev) => {
     if (ev.target.value !== "Select a flight") {
       setFlightNumber(ev.target.value);
-      console.log(ev.target.value);
     }
   };
 
@@ -65,7 +69,11 @@ const SeatSelect = ({ updateUserReservation, formData, setFormData }) => {
           if (status === 201) {
             console.log(message);
             setSubStatus("confirmed");
-            formData.id = data.id;
+            localStorage.setItem("confirmationId", `${data.id}`);
+            localStorage.setItem("userData", JSON.stringify(data));
+            updateUserReservation(data);
+            setIsShowing(true);
+            // formData.id = data.id;
             history.push("/confirmed");
           } else {
             console.log(status, message, data);

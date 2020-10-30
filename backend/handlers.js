@@ -80,6 +80,11 @@ const addReservations = (req, res) => {
   } else {
     req.body.id = uuidv4();
     reservations.push(req.body);
+    flights[flight].forEach((seats) => {
+      if (seats.id === seat) {
+        seats.isAvailable = false;
+      }
+    });
     res.status(201).json({
       status: 201,
       message: `Reservation for ${givenName} ${surname} was successfully created.`,
@@ -104,6 +109,11 @@ const deleteReservation = (req, res) => {
   } else {
     const reservationIndex = reservations.indexOf(targetResFromId[0]);
     reservations.splice(reservationIndex, 1);
+    flights[targetResFromId[0].flight].forEach((seats) => {
+      if (seats.id === targetResFromId[0].seat) {
+        seats.isAvailable = true;
+      }
+    });
     res.status(200).json({
       status: 200,
       message: `Reservation with id of ${id} has been deleted`,
@@ -150,6 +160,70 @@ const updateReservation = (req, res) => {
   }
 };
 
+const updateProfile = (req, res) => {
+  const { email } = req.params;
+
+  const { givenName, surname } = req.body;
+  if (givenName === "" && surname === "") {
+    res.status(400).json({
+      status: 400,
+      message: "Must enter input values to change profile settings",
+      data: req.body,
+    });
+  } else if (givenName !== "" && surname !== "") {
+    reservations.forEach((reserve) => {
+      if (reserve.email === email) {
+        reserve.givenName = givenName;
+        reserve.surname = surname;
+      }
+    });
+    res.status(200).json({
+      status: 200,
+      message: "Success",
+      data: req.body,
+    });
+  } else if (givenName !== "" && surname === "") {
+    reservations.forEach((reserve) => {
+      if (reserve.email === email) {
+        reserve.givenName = givenName;
+      }
+    });
+
+    res.status(200).json({
+      status: 200,
+      message: "Success",
+      data: req.body,
+    });
+  } else if (givenName === "" && surname !== "") {
+    reservations.forEach((reserve) => {
+      if (reserve.email === email) {
+        reserve.surname = surname;
+      }
+    });
+    res.status(200).json({
+      status: 200,
+      message: "Success",
+      data: req.body,
+    });
+  }
+};
+
+const updateReservationSeat = (req, res) => {
+  const { seat } = req.body;
+  const ID = req.params;
+  console.log(ID.id);
+  reservations.forEach((reserve) => {
+    if (reserve.id === ID.id) {
+      reserve.seat = seat;
+    }
+  });
+  res.status(200).json({
+    status: 200,
+    message: "success",
+    data: req.body,
+  });
+};
+
 module.exports = {
   getFlights,
   getFlight,
@@ -158,4 +232,6 @@ module.exports = {
   getSingleReservation,
   deleteReservation,
   updateReservation,
+  updateProfile,
+  updateReservationSeat,
 };

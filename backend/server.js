@@ -13,6 +13,8 @@ const {
   addReservations,
   deleteReservation,
   updateReservation,
+  updateProfile,
+  updateReservationSeat,
 } = require("./handlers");
 
 express()
@@ -48,8 +50,15 @@ express()
   // delete a reservation
   .delete("/api/v1/reservations/:id", deleteReservation)
 
-  //
+  //update reservation
   .put("/api/v1/reservations/:id", updateReservation)
+
+  //update profile
+  .put("/api/v1/profiles/:email", updateProfile)
+
+  //update seat (should replace update reservation^ but I don't want to delete required project)
+  .put("/api/v1/reservations/seat/:id", updateReservationSeat)
+
   // add new endpoints here ☝️
   // ---------------------------------
   // Nothing to modify below this line

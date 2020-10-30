@@ -11,7 +11,8 @@ const Confirmation = ({ form }) => {
         <ConfirmationTitle>Your flight is confirmed!</ConfirmationTitle>
         <ListContainer>
           <ReservatoinDetails>
-            <span>Reservation #:</span> {form.id}
+            <span>Reservation #:</span> {localStorage.getItem("confirmationId")}
+            {/* <span>Reservation #:</span> {form.id} */}
           </ReservatoinDetails>
           <ReservatoinDetails>
             <span>Flight #:</span> {form.flight}

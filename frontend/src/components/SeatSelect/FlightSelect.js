@@ -22,8 +22,9 @@ const FlightSelect = ({ handleFlightSelect }) => {
         name="flights"
         placeholder="Select a flight"
         onClick={handleFlightSelect}
+        defaultValue={"Select a flight"}
       >
-        <option selected disabled>
+        <option value="Select a flight" disabled>
           Select a flight
         </option>
         {flights.map((flight, index) => {

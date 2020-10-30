@@ -1,5 +1,9 @@
 # Module 4 - Project: SlingAir!
 
+## My stretch exercise
+
+<img src='frontend/src/assets/screenshots/slingshot-project.gif'  />
+
 <img src='frontend/src/assets/screenshots/header.png' style='width:100%' />
 
 You just accepted a web developer position at Slingshot Airlines!

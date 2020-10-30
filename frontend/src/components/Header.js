@@ -1,19 +1,24 @@
 import React from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 import { themeVars } from "./GlobalStyles";
 import slingairLogo from "../assets/logo_text.png";
 
-const Header = () => (
+const Header = ({ isShowing }) => (
   <Wrapper>
-    <Logo>
-      <h1>Sling Airlines</h1>
-    </Logo>
+    <Link exact to="/">
+      <Logo>
+        <h1>Sling Airlines</h1>
+      </Logo>
+    </Link>
     <Nav>
       {/* TODO: only show links if the user has a reservation already */}
       <>
-        <StyledNavLink to="/view-reservation">Reservation</StyledNavLink>
+        {isShowing && (
+          <StyledNavLink to="/view-reservation">Reservation</StyledNavLink>
+        )}
+
         <StyledNavLink to="/profile">Profile</StyledNavLink>
       </>
     </Nav>
