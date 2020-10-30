@@ -9,14 +9,16 @@ import GlobalStyles, { themeVars } from "./GlobalStyles";
 import { Profile } from "./Profile";
 import { Reservation } from "./Reservation";
 import { ChangeSeat } from "./ChangeSeat";
+import { Signin } from "./Signin";
 
 const initialState = { seat: "", givenName: "", surname: "", email: "" };
-const userInitialState = { givenName: "", surname: "" };
+const userInitialState = { givenName: "", surname: "", email: "" };
 const App = () => {
   const [userReservation, setUserReservation] = useState([]);
   const [formData, setFormData] = useState(initialState);
   const [userData, setUserData] = useState(userInitialState);
   const [isShowing, setIsShowing] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const updateUserReservation = (newData) => {
     setUserReservation({ ...userReservation, ...newData });
@@ -30,10 +32,17 @@ const App = () => {
   return (
     <BrowserRouter>
       <GlobalStyles />
-      <Header isShowing={isShowing} />
+      <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Main>
         <Switch>
           <Route exact path="/">
+            <Signin
+              userData={userData}
+              setUserData={setUserData}
+              setIsLoggedIn={setIsLoggedIn}
+            />
+          </Route>
+          <Route path="/seats">
             <SeatSelect
               formData={formData}
               setFormData={setFormData}

@@ -26,21 +26,21 @@ const Form = ({
         placeholder="First Name"
         type="text"
         handleChange={handleChange}
-        value={formData.givenName}
+        value={JSON.parse(localStorage.getItem("userData")).givenName}
       />
       <Input
         name="surname"
         placeholder="Last Name"
         type="text"
         handleChange={handleChange}
-        value={formData.surname}
+        value={JSON.parse(localStorage.getItem("userData")).surname}
       />
       <Input
         name="email"
         placeholder="Email"
         type="email"
         handleChange={handleChange}
-        value={formData.email}
+        value={JSON.parse(localStorage.getItem("userData")).email}
       />
       <Button
         disabled={disabled}

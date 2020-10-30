@@ -5,21 +5,30 @@ import { NavLink, Link } from "react-router-dom";
 import { themeVars } from "./GlobalStyles";
 import slingairLogo from "../assets/logo_text.png";
 
-const Header = ({ isShowing }) => (
+const Header = ({ isLoggedIn, setIsLoggedIn }) => (
   <Wrapper>
-    <Link exact to="/">
-      <Logo>
-        <h1>Sling Airlines</h1>
-      </Logo>
-    </Link>
+    <Logo>
+      <h1>Sling Airlines</h1>
+    </Logo>
+
     <Nav>
       {/* TODO: only show links if the user has a reservation already */}
       <>
-        {isShowing && (
+        {/* {isShowing && (
           <StyledNavLink to="/view-reservation">Reservation</StyledNavLink>
-        )}
+        )} */}
 
-        <StyledNavLink to="/profile">Profile</StyledNavLink>
+        {isLoggedIn && (
+          <StyledNavLink
+            to="/"
+            onClick={() => {
+              localStorage.setItem("userData", "");
+              setIsLoggedIn(false);
+            }}
+          >
+            Sign out
+          </StyledNavLink>
+        )}
       </>
     </Nav>
   </Wrapper>

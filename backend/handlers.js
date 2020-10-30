@@ -6,6 +6,8 @@ const { v4: uuidv4 } = require("uuid");
 //  Use this data. Changes will persist until the server (backend) restarts.
 const { flights, reservations } = require("./data");
 
+const rp = require("request-promise");
+
 const getFlights = (req, res) => {
   res.status(200).json({
     status: 200,
@@ -224,6 +226,20 @@ const updateReservationSeat = (req, res) => {
   });
 };
 
+//for slingair API
+
+const apiGetFlights = (req, res) => {};
+
+const apiGetSpecificFlight = (req, res) => {};
+
+const apiGetSpecificSeat = (req, res) => {};
+
+const apiGetUsers = (req, res) => {};
+
+const apiGetSpecificUser = (req, res) => {};
+
+const apiCreateUser = (req, res) => {};
+
 module.exports = {
   getFlights,
   getFlight,
@@ -234,4 +250,10 @@ module.exports = {
   updateReservation,
   updateProfile,
   updateReservationSeat,
+  apiGetFlights,
+  apiGetSpecificFlight,
+  apiGetSpecificSeat,
+  apiGetUsers,
+  apiGetSpecificUser,
+  apiCreateUser,
 };

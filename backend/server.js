@@ -15,6 +15,12 @@ const {
   updateReservation,
   updateProfile,
   updateReservationSeat,
+  apiGetFlights,
+  apiGetSpecificFlight,
+  apiGetSpecificSeat,
+  apiGetUsers,
+  apiGetSpecificUser,
+  apiCreateUser,
 } = require("./handlers");
 
 express()
@@ -58,6 +64,25 @@ express()
 
   //update seat (should replace update reservation^ but I don't want to delete required project)
   .put("/api/v1/reservations/seat/:id", updateReservationSeat)
+
+  //SLINGAIR API
+  //return an array of flight numbers
+  .get("/api/v2/flights", apiGetFlights)
+
+  //return info on a specific flight
+  .get("/api/v2/flights/:flight", apiGetSpecificFlight)
+
+  //return info on a specific seat
+  .get("/api/v2/flights/:flight/:seat", apiGetSpecificSeat)
+
+  //return an array all users (default is first 10), params: limit(1-25), start: number (number is array index where returned array starts)
+  .get("/api/v2/users", apiGetUsers)
+
+  //returns an object based on userId OR user.email
+  .get("/api/v2/users/:userId", apiGetSpecificUser)
+
+  //create a new user/reservation (only one reservation/user per email address)
+  .post("/api/v2/users", apiCreateUser)
 
   // add new endpoints here ☝️
   // ---------------------------------

@@ -9,8 +9,9 @@ const Input = ({ name, type, placeholder, handleChange, value }) => {
         type={type}
         name={name}
         placeholder={placeholder}
-        onChange={(ev) => handleChange(ev.target.value, name)}
+        // onChange={(ev) => handleChange(ev.target.value, name)}
         value={value}
+        disabled={true}
       />
     </Wrapper>
   );
@@ -38,6 +39,10 @@ const Wrapper = styled.div`
 
     &::placeholder {
       color: #999;
+    }
+
+    &:disabled {
+      background: #fff;
     }
   }
 `;
