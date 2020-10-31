@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { themeVars } from "./GlobalStyles";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 
@@ -93,9 +93,11 @@ export const Signin = ({
         </SubmitButton>
       </SignInForm>
       <Disclaimer>
-        If you do not have an account, one will be create for you.
+        If you do not have an account, one will be created for you.
       </Disclaimer>
-      <AdminButton>Admin</AdminButton>
+      <NoStyleLink to="/admin">
+        <AdminButton>Admin</AdminButton>
+      </NoStyleLink>
     </Container>
   );
 };
@@ -164,4 +166,9 @@ const AdminButton = styled.button`
   &:hover {
     opacity: 0.8;
   }
+`;
+
+const NoStyleLink = styled(Link)`
+  margin: 0 auto;
+  text-decoration: none;
 `;

@@ -276,7 +276,28 @@ const apiGetSpecificFlight = (req, res) => {
 
 const apiGetSpecificSeat = (req, res) => {};
 
-const apiGetUsers = (req, res) => {};
+const apiGetUsers = (req, res) => {
+  const { limit, start } = req.query;
+  const options = {
+    uri: `https://journeyedu.herokuapp.com/slingair/users?limit=${limit}&start=${start}`,
+  };
+  rp(options)
+    .then((repos) => JSON.parse(repos))
+    .then((obj) => {
+      res.status(200).json({
+        status: 200,
+        message: "success",
+        data: obj,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: 400,
+        message: "Exceed number of users",
+        data: { message: "Exceed number of users" },
+      });
+    });
+};
 
 const apiGetSpecificUser = (req, res) => {
   const { userId } = req.params;

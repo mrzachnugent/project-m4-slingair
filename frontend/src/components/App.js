@@ -10,6 +10,8 @@ import { Profile } from "./Profile";
 import { Reservation } from "./Reservation";
 import { ChangeSeat } from "./ChangeSeat";
 import { Signin } from "./Signin";
+import { Admin } from "./Admin";
+import { AdminReservations } from "./AdminReservations";
 
 const initialState = { seat: "" };
 const userInitialState = { givenName: "", surname: "", email: "" };
@@ -79,6 +81,12 @@ const App = () => {
               userReservation={userReservation}
               setUserReservation={setUserReservation}
             />
+          </Route>
+          <Route exact path="/admin">
+            <Admin />
+          </Route>
+          <Route path="/admin/reservations">
+            <AdminReservations />
           </Route>
           <Route path="">404: Oops!</Route>
         </Switch>
